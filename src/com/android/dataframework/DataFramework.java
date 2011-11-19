@@ -61,7 +61,9 @@ public class DataFramework {
     
     public void close()
     {
-    	mOpenInstances--;
+    	if(mOpenInstances>0){
+			mOpenInstances--;
+		}
         if (mOpenInstances == 0){
 			mCore.close();
 		}
