@@ -27,17 +27,17 @@
 
 package com.android.dataframework;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import org.xmlpull.v1.XmlPullParserException;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.android.dataframework.core.DataFrameworkCore;
 import com.android.dataframework.core.Table;
+
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class DataFramework {
 	
@@ -53,16 +53,18 @@ public class DataFramework {
     
     public void open(Context context, String namePackage) throws XmlPullParserException, IOException 
     {
-    	if (mOpenInstances == 0)
-    		mCore.open(context, namePackage, mTables);
+    	if (mOpenInstances == 0){
+			mCore.open(context, namePackage, mTables);
+		}
     	mOpenInstances++;
     }
     
     public void close()
     {
     	mOpenInstances--;
-        if (mOpenInstances == 0)
-        	mCore.close();
+        if (mOpenInstances == 0){
+			mCore.close();
+		}
     }
     
     /**
@@ -96,17 +98,22 @@ public class DataFramework {
      * @return objeto Table
      */
 	
-	public Table getTable (String table) {
+	public Table getTable (String table) throws NullPointerException {
+		Table res = null;
 		ArrayList<Table> tables = mTables;
 		int tableCount = tables.size();
 		
 		for (int i = 0; i < tableCount; i++)
 		{
 			Table t = tables.get(i); 
-			if (t.getName().equals(table))
-				return t;
+			if (t.getName().equals(table)){
+				res = t;
+			}
 		}
-		return null;
+		if(res==null){
+			throw new NullPointerException("No existe la tabla '"+table+"'");
+		}
+		return res;
 	}
 	
     /**
@@ -138,10 +145,11 @@ public class DataFramework {
      */	
 	public String getStringFromIdentifier (String name) {
 		int id = mCore.getContext().getResources().getIdentifier(mCore.getPackage() + ":string/"+name, null, null);
-		if (id!=0)
+		if (id!=0){
 			return mCore.getContext().getResources().getString(id);
-		else
+		}else{
 			return name;
+		}
 	}
 	
 	
@@ -328,8 +336,9 @@ public class DataFramework {
     public void createTables() {
 		ArrayList<Table> tables = mTables;
 		int tableCount = tables.size();
-    	for (int i = 0; i < tableCount; i++)
-    		mCore.getDB().execSQL(tables.get(i).getSQLCreateTable());
+    	for (int i = 0; i < tableCount; i++){
+			mCore.getDB().execSQL(tables.get(i).getSQLCreateTable());
+		}
 	}
     
     /**
@@ -340,8 +349,9 @@ public class DataFramework {
     public void deleteTables() {
 		ArrayList<Table> tables = mTables;
 		int tableCount = tables.size();
-		for (int i = 0; i < tableCount; i++)
+		for (int i = 0; i < tableCount; i++){
 			mCore.getDB().execSQL(tables.get(i).getSQLDeleteTable());
+		}
 	}
     
     /**
@@ -352,8 +362,9 @@ public class DataFramework {
      */    
     public void deleteTable(String table) {
     	Table t = getTable(table);
-    	if (t != null)
-    		mCore.getDB().execSQL(t.getSQLDeleteTable());
+    	if (t != null){
+			mCore.getDB().execSQL(t.getSQLDeleteTable());
+		}
 	}
     
     /**
@@ -363,8 +374,9 @@ public class DataFramework {
     public void emptyTables() {
 		ArrayList<Table> tables = mTables;
 		int tableCount = tables.size();
-    	for (int i = 0; i < tableCount; i++)
-    		mCore.getDB().delete(tables.get(i).getName(), null, null);
+    	for (int i = 0; i < tableCount; i++){
+			mCore.getDB().delete(tables.get(i).getName(), null, null);
+		}
 	}
     
     /**
@@ -378,8 +390,9 @@ public class DataFramework {
     	for (int i = 0; i < tableCount; i++)
     	{
     		Table t = tables.get(i);
-    		if (t.isBackup())
-    			mCore.getDB().delete(t.getName(), null, null);
+    		if (t.isBackup()){
+				mCore.getDB().delete(t.getName(), null, null);
+			}
     	}
 	}
     
