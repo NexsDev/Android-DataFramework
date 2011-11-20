@@ -27,9 +27,9 @@
 
 package com.android.dataframework.core;
 
-import java.util.ArrayList;
-
 import com.android.dataframework.DataFramework;
+
+import java.util.ArrayList;
 
 
 public class Table {
@@ -75,8 +75,9 @@ public class Table {
 				 for (int j=0; j<langs.size(); j++) {
 					out += ", " + f.getName() + "_" + langs.get(j);
 					out += " " + f.getSQLType();
-					if (f.isObligatory())
+					if (f.isObligatory()){
 						out += " not null";
+					}
 					if (f.getTextDefault()!=null) {
 						out += " DEFAULT '" + f.getTextDefault() + "'";
 					}
@@ -84,8 +85,9 @@ public class Table {
 			} else {
 				out += ", " + f.getName();
 				out += " " + f.getSQLType();
-				if (f.isObligatory())
+				if (f.isObligatory()){
 					out += " not null";
+				}
 				if (f.getTextDefault()!=null) {
 					out += " DEFAULT '" + f.getTextDefault() + "'";
 				}
@@ -183,16 +185,21 @@ public class Table {
      */
 	
 	public Field getField(String name) {
+		Field res = null;
 		ArrayList<Field> fields = mFields;
 		int fieldCount = fields.size();
 		
 		for (int i=0; i<fieldCount; i++) 
 		{
 			Field f = fields.get(i);
-			if (f.getName().equals(name))
-				return f;
+			if (f.getName().equals(name)){
+				res = f;
+			}
 		}
-		return null;
+		if(res==null){
+			throw new NullPointerException("No existe el campo '"+name+"' en la tabla '"+mName+"'");
+		}
+		return res;
 	}
 	
     /**
