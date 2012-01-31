@@ -43,8 +43,6 @@
 
 package com.android.dataframework;
 
-import java.util.Iterator;
-
 import android.content.ContentResolver;
 import android.database.CharArrayBuffer;
 import android.database.ContentObserver;
@@ -52,6 +50,8 @@ import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
+
+import java.util.Iterator;
 
 
 /**
@@ -79,8 +79,9 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	 */
 	private void onMove(int oldPosition, int newPosition)
 	{
-		if (oldPosition != newPosition || mCurrentEntity == null)
+		if (oldPosition != newPosition || mCurrentEntity == null){
 			mCurrentEntity = new Entity(mTableName, mCursor);
+		}
 	}
 	
 	/**
@@ -104,6 +105,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#close()
 	 */
+	@Override
 	public void close() {
 		mCursor.close();
 	}
@@ -111,6 +113,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#copyStringToBuffer(int, android.database.CharArrayBuffer)
 	 */
+	@Override
 	public void copyStringToBuffer(int columnIndex, CharArrayBuffer buffer) {
 		mCursor.copyStringToBuffer(columnIndex, buffer);
 	}
@@ -118,6 +121,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#deactivate()
 	 */
+	@Override
 	public void deactivate() {
 		mCursor.deactivate();
 	}
@@ -125,6 +129,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getBlob(int)
 	 */
+	@Override
 	public byte[] getBlob(int columnIndex) {		
 		return mCursor.getBlob(columnIndex);
 	}
@@ -132,6 +137,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getColumnCount()
 	 */
+	@Override
 	public int getColumnCount() {		
 		return mCursor.getColumnCount();
 	}
@@ -139,6 +145,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getColumnIndex(java.lang.String)
 	 */
+	@Override
 	public int getColumnIndex(String columnName) {		
 		return mCursor.getColumnIndex(columnName);
 	}
@@ -146,6 +153,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getColumnIndexOrThrow(java.lang.String)
 	 */
+	@Override
 	public int getColumnIndexOrThrow(String columnName)
 			throws IllegalArgumentException {		
 		return mCursor.getColumnIndexOrThrow(columnName);
@@ -154,6 +162,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getColumnName(int)
 	 */
+	@Override
 	public String getColumnName(int columnIndex) {		
 		return mCursor.getColumnName(columnIndex);
 	}
@@ -161,6 +170,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getColumnNames()
 	 */
+	@Override
 	public String[] getColumnNames() {
 		return mCursor.getColumnNames();
 	}
@@ -168,6 +178,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getCount()
 	 */
+	@Override
 	public int getCount() {		
 		return mCursor.getCount();
 	}
@@ -175,6 +186,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getDouble(int)
 	 */
+	@Override
 	public double getDouble(int columnIndex) {		
 		return mCursor.getDouble(columnIndex);
 	}
@@ -182,6 +194,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getExtras()
 	 */
+	@Override
 	public Bundle getExtras() {		
 		return mCursor.getExtras();
 	}
@@ -189,6 +202,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getFloat(int)
 	 */
+	@Override
 	public float getFloat(int columnIndex) {		
 		return mCursor.getFloat(columnIndex);
 	}
@@ -196,6 +210,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getInt(int)
 	 */
+	@Override
 	public int getInt(int columnIndex) {
 		return mCursor.getInt(columnIndex);
 	}
@@ -203,6 +218,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getLong(int)
 	 */
+	@Override
 	public long getLong(int columnIndex) {		
 		return mCursor.getLong(columnIndex);
 	}
@@ -210,6 +226,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getPosition()
 	 */
+	@Override
 	public int getPosition() {
 		return mCursor.getPosition();
 	}
@@ -217,6 +234,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getShort(int)
 	 */
+	@Override
 	public short getShort(int columnIndex) {
 		return mCursor.getShort(columnIndex);
 	}
@@ -224,6 +242,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getString(int)
 	 */
+	@Override
 	public String getString(int columnIndex) {
 		return mCursor.getString(columnIndex);
 	}
@@ -231,6 +250,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#getWantsAllOnMoveCalls()
 	 */
+	@Override
 	public boolean getWantsAllOnMoveCalls() {
 		return mCursor.getWantsAllOnMoveCalls();
 	}
@@ -238,6 +258,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#isAfterLast()
 	 */
+	@Override
 	public boolean isAfterLast() {
 		return mCursor.isAfterLast();
 	}
@@ -245,6 +266,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#isBeforeFirst()
 	 */
+	@Override
 	public boolean isBeforeFirst() {
 		return mCursor.isBeforeFirst();
 	}
@@ -252,6 +274,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#isClosed()
 	 */
+	@Override
 	public boolean isClosed() {		
 		return mCursor.isClosed();
 	}
@@ -259,6 +282,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#isFirst()
 	 */
+	@Override
 	public boolean isFirst() {		
 		return mCursor.isFirst();
 	}
@@ -266,6 +290,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#isLast()
 	 */
+	@Override
 	public boolean isLast() {
 		return mCursor.isLast();
 	}
@@ -273,6 +298,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#isNull(int)
 	 */
+	@Override
 	public boolean isNull(int columnIndex) {
 		return mCursor.isNull(columnIndex);
 	}
@@ -280,6 +306,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#move(int)
 	 */
+	@Override
 	public boolean move(int offset) {
 		int oldPos = getPosition();		
 		boolean result = mCursor.move(offset);
@@ -291,6 +318,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#moveToFirst()
 	 */
+	@Override
 	public boolean moveToFirst() {
 		int oldPos = getPosition();		
 		boolean result = mCursor.moveToFirst();
@@ -302,6 +330,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#moveToLast()
 	 */
+	@Override
 	public boolean moveToLast() {
 		int oldPos = getPosition();		
 		boolean result = mCursor.moveToLast();
@@ -313,6 +342,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#moveToNext()
 	 */
+	@Override
 	public boolean moveToNext() {
 		int oldPos = getPosition();		
 		boolean result = mCursor.moveToNext();
@@ -324,6 +354,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#moveToPosition(int)
 	 */
+	@Override
 	public boolean moveToPosition(int position) {
 		int oldPos = getPosition();		
 		boolean result = mCursor.moveToPosition(position);
@@ -335,6 +366,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#moveToPrevious()
 	 */
+	@Override
 	public boolean moveToPrevious() {
 		int oldPos = getPosition();		
 		boolean result = mCursor.moveToPrevious();
@@ -346,6 +378,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#registerContentObserver(android.database.ContentObserver)
 	 */
+	@Override
 	public void registerContentObserver(ContentObserver observer) {
 		mCursor.registerContentObserver(observer);
 	}
@@ -353,6 +386,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#registerDataSetObserver(android.database.DataSetObserver)
 	 */
+	@Override
 	public void registerDataSetObserver(DataSetObserver observer) {
 		mCursor.registerDataSetObserver(observer);
 	}
@@ -360,6 +394,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#requery()
 	 */
+	@Override
 	public boolean requery() {
 		return mCursor.requery();
 	}
@@ -367,6 +402,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#respond(android.os.Bundle)
 	 */
+	@Override
 	public Bundle respond(Bundle extras) {
 		return mCursor.respond(extras);
 	}
@@ -374,6 +410,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#setNotificationUri(android.content.ContentResolver, android.net.Uri)
 	 */
+	@Override
 	public void setNotificationUri(ContentResolver cr, Uri uri) {
 		mCursor.setNotificationUri(cr, uri);
 	}
@@ -381,6 +418,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#unregisterContentObserver(android.database.ContentObserver)
 	 */
+	@Override
 	public void unregisterContentObserver(ContentObserver observer) {
 		mCursor.unregisterContentObserver(observer);
 	}
@@ -388,6 +426,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	/* (non-Javadoc)
 	 * @see android.database.Cursor#unregisterDataSetObserver(android.database.DataSetObserver)
 	 */
+	@Override
 	public void unregisterDataSetObserver(DataSetObserver observer) {
 		mCursor.unregisterDataSetObserver(observer);
 	}
@@ -398,6 +437,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	 *   Tan solo realizamos las acciones indicadas sobre el Cursor pasado
 	 * en el constructor.
 	 */
+	@Override
 	public Iterator<Entity> iterator() {
 		return new EntityIterator();
 	}
@@ -407,26 +447,36 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	 */
 	public class EntityIterator implements Iterator<Entity> {
 		
+		@Override
 		public boolean hasNext() 
 		{
-			if (mCursor.isLast() || mCursor.isAfterLast())
+			if (mCursor.isLast() || mCursor.isAfterLast()){
 				return false;
-			else
-				return true;			
+			}else{
+				return true;
+			}			
 		}
 
+		@Override
 		public Entity next() 
 		{
-			if (mCurrentEntity == null)
-			  moveToFirst();
-			else
-			  moveToNext();
+			if (mCurrentEntity == null){
+				moveToFirst();
+			}else{
+				moveToNext();
+			}
 			return mCurrentEntity;
 		}
 
+		@Override
 		public void remove() 
 		{
 		}		
+	}
+
+	@Override
+	public int getType(int columnIndex) {
+		return 0;
 	}
 
 }

@@ -27,16 +27,6 @@
 
 package com.android.dataframework;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -48,6 +38,16 @@ import android.util.Log;
 
 import com.android.dataframework.core.Field;
 import com.android.dataframework.core.Table;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 public class Entity {
 	
@@ -122,13 +122,15 @@ public class Entity {
      * @param name nombre del campo
      * @return valor del campo (Tipo int)
      */	
-	public int getInt(String name) 
+	public Integer getInt(String name) 
 	{
 		Object obj = getValue(name);
-		if (obj == null)
+		if (obj == null){
 			return 0;
-		else
+		}else{
 			return Integer.parseInt(obj.toString());
+		}
+		
 	}
 	
 	/**
@@ -144,10 +146,11 @@ public class Entity {
 			return DataFramework.getInstance().getStringFromIdentifier(getValue(name).toString());
 		} else {
 			Object obj = getValue(name);
-			if (obj == null)
+			if (obj == null){
 				return "";
-			else
+			}else{
 				return obj.toString();
+			}
 		}
 	}
 		
@@ -212,13 +215,17 @@ public class Entity {
      */    
     public Cursor getCursor(String field) {
     	try {
-	    	if (isInsert()) return null;
+	    	if (isInsert()){
+				return null;
+			}
 	    	
 	    	String fieldName = field;
 	    	
 	    	Field f = DataFramework.getInstance().getTable(mTable).getField(fieldName);
 	    	
-	    	if (f.getType().equals("multilanguage")) fieldName += "_" +  DataFramework.getInstance().getCurrentLanguage();
+	    	if (f.getType().equals("multilanguage")){
+				fieldName += "_" +  DataFramework.getInstance().getCurrentLanguage();
+			}
 	    	
 	        Cursor mCursor = DataFramework.getInstance().getDB().query(true, mTable, new String[] {fieldName}, DataFramework.KEY_ID + "=" + mId, null,
 	                        null, null, null, null);
@@ -242,7 +249,9 @@ public class Entity {
     public Cursor getCursor() {
 
     	try {
-	    	if (isInsert()) return null;
+	    	if (isInsert()){
+				return null;
+			}
 	    	
 	        Cursor mCursor = DataFramework.getInstance().getDB().query(true, mTable, DataFramework.getInstance().getTable(mTable).getFieldsToArray(), DataFramework.KEY_ID + "=" + mId, null,
 	                        null, null, null, null);
@@ -271,10 +280,11 @@ public class Entity {
 			if (isAttribute(arString[i])) 
 			{
 				Field f = getTableObject().getField(arString[i]);
-				if (f.getType().equals("foreign-key"))
+				if (f.getType().equals("foreign-key")){
 					out += getEntity(arString[i]).toString();
-				else
+				}else{
 					out += getString(arString[i]);
+				}
 			} else if (arString[i].equals(DataFramework.KEY_ID)) {
 				out += getId();
 			} else {
@@ -318,10 +328,11 @@ public class Entity {
 	public long getLong(String name) 
 	{
 		Object obj = getValue(name);
-		if (obj == null)
+		if (obj == null){
 			return 0;
-		else
+		}else{
 			return Long.parseLong(obj.toString());
+		}
 	}
 	
 	public double getDouble(String name)
@@ -387,16 +398,17 @@ public class Entity {
 		        	indexField = c.getColumnIndexOrThrow(attributeName);
 		        }
 		        
-		        if (f.getType().equals("text") || f.getType().equals("multilanguage") || f.getType().equals("string-identifier") || f.getType().equals("drawable-identifier"))
-		        	attribs.put(attributeName, c.getString(indexField));
-		        else if (f.getType().equals("int"))
-		        	attribs.put(attributeName, c.getInt(indexField));
-		        else if (f.getType().equals("foreign-key"))
-		        	attribs.put(attributeName, c.getLong(indexField));
-		        else if (f.getType().equals("real"))
-		        	attribs.put(attributeName, c.getDouble(indexField));
-		        else
-		        	attribs.put(attributeName, c.getString(indexField));
+		        if (f.getType().equals("text") || f.getType().equals("multilanguage") || f.getType().equals("string-identifier") || f.getType().equals("drawable-identifier")){
+					attribs.put(attributeName, c.getString(indexField));
+				}else if (f.getType().equals("int")){
+					attribs.put(attributeName, c.getInt(indexField));
+				}else if (f.getType().equals("foreign-key")){
+					attribs.put(attributeName, c.getLong(indexField));
+				}else if (f.getType().equals("real")){
+					attribs.put(attributeName, c.getDouble(indexField));
+				}else{
+					attribs.put(attributeName, c.getString(indexField));
+				}
 			}
 		}
 	}
@@ -438,8 +450,9 @@ public class Entity {
 	public Entity (String table, Long id) {
 		this.mTable = table;
 		mForceId = -1;
-		if (id > 0) 
+		if (id > 0){
 			this.mId = id;
+		}
 		addAllAttributesFromTable();
 		loadData();
 	}
@@ -467,10 +480,11 @@ public class Entity {
      */	
 	public void setValue(String name, Object value) 
 	{
-		if (Entity.class.isInstance(value)) 
+		if (Entity.class.isInstance(value)){
 			mAttributes.put(name, ((Entity)value).getId());
-		else
+		}else{
 			mAttributes.put(name, value);
+		}
 	}
 	
 	/**
@@ -505,10 +519,11 @@ public class Entity {
 	public Entity getEntity(String name) 
 	{
 		Field f = getTableObject().getField(name);
-		if (f != null && f.getType().equals("foreign-key"))
+		if (f != null && f.getType().equals("foreign-key")){
 			return new Entity(f.getForeignTable(), getLong(name));
-		else
+		}else{
 			return null;
+		}
 	}
 	
 	/**
@@ -576,8 +591,9 @@ public class Entity {
 			if (isInsert()) {
 				mId = DataFramework.getInstance().getDB().insert(mTable, null, args);
 				return (mId > 0);
-			} else
+			}else{
 				return DataFramework.getInstance().getDB().update(mTable, args, DataFramework.KEY_ID + "=" + mId, null) > 0;
+			}
     	} catch (SQLException e) {
             Log.e("Exception on query", e.toString());
         }
@@ -651,10 +667,11 @@ public class Entity {
 	    				String name = x.getAttributeValue(null, "name"); 
 	    				if (name != null) {
 	    					String value = x.getAttributeValue(null, "value");
-	    					if (name.equals("_id"))
-	    						mId = Long.parseLong(value);
-	    					else
-	    						setValue(name, value);
+	    					if (name.equals("_id")){
+								mId = Long.parseLong(value);
+							}else{
+								setValue(name, value);
+							}
 	    				}
 	    			}
 	    		}
