@@ -1,15 +1,14 @@
 package com.android.dataframework;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-
 import com.android.dataframework.core.Field;
 import com.android.dataframework.core.Table;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class EntityEditActivity extends Activity 
 {
@@ -78,7 +77,7 @@ public abstract class EntityEditActivity extends Activity
 		if (mySavedInstanceState == null)
 		{
 			//  Si no hay datos guardados es que se trata de la primera vez,
-			// así que vemos si hay identificador de fila, si la hay es que es una edición
+			// asi que vemos si hay identificador de fila, si la hay es que es una edicion
 			// si no es que es un alta nueva.
 			Bundle extras = getIntent().getExtras();
 			mRowId = (Long) (extras != null ? extras.get(mKeyField) 
@@ -86,7 +85,7 @@ public abstract class EntityEditActivity extends Activity
 
 			if (mRowId != null)
 			{
-				// Si hay RowId cargamos de la base de datos el registro en cuestión				
+				// Si hay RowId cargamos de la base de datos el registro en cuestion
 				loadDataFromEntityToView(new Entity(getTableName(), mRowId));
 			}
 			else
@@ -126,7 +125,7 @@ public abstract class EntityEditActivity extends Activity
 		View mainView = findViewById(getMainViewId());
 		Table table = new Table(getTableName());
 		
-		// Buscamos los View´s que tengan en el Tag el nombre de uno de los campos.
+		// Buscamos los Views que tengan en el Tag el nombre de uno de los campos.
 		for (Field f: table.getFields())
 		{
 			View v = mainView.findViewWithTag(f.getName());
@@ -140,14 +139,14 @@ public abstract class EntityEditActivity extends Activity
 	/**
 	 * Carga los datos de la base de datos a la interfaz de usuario. 
 	 * Prepara la vista para editar los datos.
-	 * @param rowId Identificador único del registro.
+	 * @param rowId Identificador unico del registro.
 	 */
 	protected void loadDataFromEntityToView(Entity entity)
 	{
 		Table table = new Table(getTableName());
 		Map<String, View> views = getAttributeViews();
 		
-		// Buscamos los View´s que tengan en el Tag el nombre de uno de los campos.
+		// Buscamos los Views que tengan en el Tag el nombre de uno de los campos.
 		for (Field f: table.getFields())
 		{
 			Object value = entity.getValue(f.getName());
@@ -164,7 +163,7 @@ public abstract class EntityEditActivity extends Activity
 	
 	/**
 	 * Guardar datos en la base de datos, se debe llamar desde el 
-	 * botón guardar, no se llama automáticamente.
+	 * boton guardar, no se llama automaticamente.
 	 */
 	abstract protected void saveToDB();
 

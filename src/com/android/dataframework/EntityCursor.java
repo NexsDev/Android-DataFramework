@@ -24,12 +24,12 @@
  * jros@jros.org
  * 
  * 
- *  EntityCursor es una clase que permite el acceso a una colección de entidades
+ *  EntityCursor es una clase que permite el acceso a una coleccion de entidades
  *  sin necesidad de tener que crear un objeto Entity por cada registro cargado 
  *  en el cursor.
  *  
- *  Además también implementa la interface Iterable, con lo que podemos usar el cursor
- *  en una instrucción foreach.
+ *  Ademas tambien implementa la interface Iterable, con lo que podemos usar el cursor
+ *  en una instruccion foreach.
  *   
  *   Ejemplo de uso:
  *   
@@ -72,7 +72,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	}
 
 	/**
-	 * Cuando se efectúa un movimiento en el cursor actualizamos la entidad en curso.
+	 * Cuando se efectï¿½a un movimiento en el cursor actualizamos la entidad en curso.
 	 * 
 	 * @param oldPosition
 	 * @param newPosition
@@ -95,7 +95,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	}
 
 	/**
-	 *   Implementación de los métodos abstractos de la clase Cursor.
+	 *   Implementaciï¿½n de los mï¿½todos abstractos de la clase Cursor.
 	 *   
 	 *   Tan solo realizamos las acciones indicadas sobre el Cursor pasado
 	 * en el constructor.
@@ -432,7 +432,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	}
 	
 	/**
-	 *   Implementación de los métodos de la Interface Iterable.
+	 *   Implementaciï¿½n de los mï¿½todos de la Interface Iterable.
 	 *   
 	 *   Tan solo realizamos las acciones indicadas sobre el Cursor pasado
 	 * en el constructor.
@@ -443,7 +443,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 	}
 	
 	/** 
-	 * Definición e implementación de la clase EntityIterator  
+	 * Definicion e implementacion de la clase EntityIterator
 	 */
 	public class EntityIterator implements Iterator<Entity> {
 		
@@ -474,7 +474,6 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 		}		
 	}
 
-	@Override
 	public int getType(int columnIndex) {
 		return 0;
 	}

@@ -158,9 +158,9 @@ public class Field {
 	}
 
     /**
-     * Devuelve el tamaño
+     * Devuelve el tamano
      * 
-     * @return tamaño
+     * @return tamaï¿½o
      */
 	
 	public int getSize() {
@@ -168,7 +168,7 @@ public class Field {
 	}
 
     /**
-     * Establece el tamaño
+     * Establece el tamano
      * 
      * @param tamano
      */
@@ -178,7 +178,7 @@ public class Field {
 	}
 
     /**
-     * Devuelve la tabla a la que pertenece la clave foránea
+     * Devuelve la tabla a la que pertenece la clave foranea
      * 
      * @return tabla
      */
@@ -188,7 +188,7 @@ public class Field {
 	}
 
     /**
-     * Establece la tabla a la que pertenece la clave foránea
+     * Establece la tabla a la que pertenece la clave foranea
      * 
      * @param tabla
      */
@@ -198,7 +198,7 @@ public class Field {
 	}
 
     /**
-     * Devuelve la versión en la que ha sido creado
+     * Devuelve la versiï¿½n en la que ha sido creado
      * 
      * @return version
      */
@@ -208,7 +208,7 @@ public class Field {
 	}
 	
     /**
-     * Establece la versión en la que ha sido creado
+     * Establece la versiï¿½n en la que ha sido creado
      * 
      * @return version
      */

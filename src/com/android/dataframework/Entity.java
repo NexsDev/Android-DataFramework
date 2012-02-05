@@ -35,10 +35,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
-
 import com.android.dataframework.core.Field;
 import com.android.dataframework.core.Table;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -99,9 +97,9 @@ public class Entity {
 	}
 	
     /**
-     * Devuelve si es una actualización del registro
+     * Devuelve si es una actualizacion del registro
      * 
-     * @return true si es una actualización
+     * @return true si es una actualizacion
      */	
 	public boolean isUpdate() {
 		return (mId < 0)?false:true;
@@ -155,7 +153,7 @@ public class Entity {
 	}
 		
 	/**
-     * Devuelve el idenfificador del recurso en la aplicación
+     * Devuelve el idenfificador del recurso en la aplicacion
      * 
      * @param name nombre del campo
      * @return valor (Tipo int)
@@ -167,7 +165,7 @@ public class Entity {
 	}
 	
 	/**
-     * Devuelve un bitmap del recurso en la aplicación
+     * Devuelve un bitmap del recurso en la aplicacion
      * 
      * @param name nombre del campo
      * @return valor (Tipo bitmap)
@@ -181,7 +179,7 @@ public class Entity {
 	}
 	
 	/**
-     * Devuelve un BitmapDrawable del recurso en la aplicación
+     * Devuelve un BitmapDrawable del recurso en la aplicacion
      * 
      * @param name nombre del campo
      * @return valor (Tipo BitmapDrawable)
@@ -195,7 +193,7 @@ public class Entity {
 	}
 	
 	/**
-     * Devuelve un objeto Drawable del recurso en la aplicación
+     * Devuelve un objeto Drawable del recurso en la aplicaciï¿½n
      * 
      * @param name nombre del campo
      * @return valor (Tipo Drawable)
@@ -207,7 +205,7 @@ public class Entity {
 	}	
 	
     /**
-     * Devuelve el Cursor de la entidad con un solo campo pasado como parámetro. 
+     * Devuelve el Cursor de la entidad con un solo campo pasado como parï¿½metro. 
      * Si la entidad es un nuevo registro devuelve null
      * 
      * @param field campo (Objeto Field)
@@ -348,7 +346,7 @@ public class Entity {
 	}
 
 	/**
-	 * Añade los atributos desde el objeto table.
+	 * Aï¿½ade los atributos desde el objeto table.
 	 * Se llama desde el constructor. 
 	 */
 	private void addAllAttributesFromTable()
@@ -458,7 +456,7 @@ public class Entity {
 	}
 	
     /**
-    * Constructor - toma como valor el nombre de tabla de la entidad y un XML con la serialización de la entidad. 
+    * Constructor - toma como valor el nombre de tabla de la entidad y un XML con la serializaciï¿½n de la entidad. 
     * 
     * @param table la tabla de la entidad
     * @param xml Xml devuelto por getSerialization o getXml
@@ -527,13 +525,17 @@ public class Entity {
 	}
 	
 	/**
-     * Comprueba si el campo pasado por parámetro es un atributo de la entidad
+     * Comprueba si el campo pasado por parï¿½metro es un atributo de la entidad
      * 
      * @param name nombre del campo
      * @return true si es un campo
      */	
-	public boolean isAttribute(String name) {		
-		return getTableObject().getField(name) != null;
+	public boolean isAttribute(String name) {
+        try {
+		    return getTableObject().getField(name) != null;
+        } catch (NullPointerException e) {
+            return false;
+        }
 	}
 	
 	/**
@@ -547,7 +549,7 @@ public class Entity {
 	}
  
     /**
-     * Guarda una fila en la base de datos. Si _id es -1 es un nuevo registro, otra cosa una actualización
+     * Guarda una fila en la base de datos. Si _id es -1 es un nuevo registro, otra cosa una actualizacion
      * 
      * @return id or -1 if failed
      */
@@ -569,10 +571,10 @@ public class Entity {
 				if (value != null)  
 				{
 					// TODO: Verificar si no hay que usar las distintas llamdas 
-					// al método ContentValues.put() dependiendo del tipo del 
+					// al metodo ContentValues.put() dependiendo del tipo del
 					// campo.
 					//
-					// Lo que está muy claro es que nunca se guarda null para ningún
+					// Lo que estï¿½ muy claro es que nunca se guarda null para ningï¿½n
 					// campo.
 					if (f.getType().equals("multilanguage")) {
 						args.put(f.getName() + "_" +  DataFramework.getInstance().getCurrentLanguage(), value.toString());
@@ -612,7 +614,7 @@ public class Entity {
     }
 
     /**
-     * Devuelve la serialización de la entidad en formato de cadena. (XML)
+     * Devuelve la serializaciï¿½n de la entidad en formato de cadena. (XML)
      * @return XML
      */
     public String getSerialization()

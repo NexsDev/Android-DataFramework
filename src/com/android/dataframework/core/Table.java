@@ -41,7 +41,7 @@ public class Table {
 	private boolean mBackup;
 
     /**
-     * Constructor - Contiene la información de una tabla de la base de datos 
+     * Constructor - Contiene la informacion de una tabla de la base de datos
      * 
      * @param name nombre de la tabla 
      */
@@ -197,7 +197,7 @@ public class Table {
 			}
 		}
 		if(res==null){
-			throw new NullPointerException("No existe el campo '"+name+"' en la tabla '"+mName+"'");
+			throw new NullPointerException("No exist field '"+name+"' in table '"+mName+"'");
 		}
 		return res;
 	}
@@ -253,7 +253,7 @@ public class Table {
 	}
 	
     /**
-     * Devuelve la versión en la que ha sido creado
+     * Devuelve la version en la que ha sido creado
      * 
      * @return version
      */
@@ -263,7 +263,7 @@ public class Table {
 	}
 	
     /**
-     * Establece la versión en la que ha sido creado
+     * Establece la version en la que ha sido creado
      * 
      * @return version
      */
