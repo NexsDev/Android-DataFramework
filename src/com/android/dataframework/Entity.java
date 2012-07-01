@@ -69,7 +69,7 @@ public class Entity {
 				c.close();
 				return 1;
 			} else {
-				long Id = c.getInt(0) + 1;
+				long Id = c.getLong(0) + 1;
 				c.close();
 				return Id;
 			}
@@ -399,7 +399,7 @@ public class Entity {
 		        if (f.getType().equals("text") || f.getType().equals("multilanguage") || f.getType().equals("string-identifier") || f.getType().equals("drawable-identifier")){
 					attribs.put(attributeName, c.getString(indexField));
 				}else if (f.getType().equals("int")){
-					attribs.put(attributeName, c.getInt(indexField));
+					attribs.put(attributeName, c.getLong(indexField));
 				}else if (f.getType().equals("foreign-key")){
 					attribs.put(attributeName, c.getLong(indexField));
 				}else if (f.getType().equals("real")){
