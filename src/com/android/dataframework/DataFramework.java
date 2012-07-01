@@ -332,6 +332,23 @@ public class DataFramework {
     }
 	
     /**
+     * Devuelve un cursor con los registros de una consulta en la tabla 
+     * 
+     * @param sql consulta SQL
+     * @param selectionArgs array
+     * 
+     * @return lista de objetos
+     */
+    
+    public Cursor rawQuery(String sql, String[] selectionArgs) {
+    	Cursor c = mCore.getDB().rawQuery(sql, selectionArgs);
+    	if (c.getCount() > 0) {
+    		c.moveToFirst();
+    	}
+        return c;        
+    }
+    	
+    /**
      * Crea las tablas de la base de datos 
      * 
      */    
