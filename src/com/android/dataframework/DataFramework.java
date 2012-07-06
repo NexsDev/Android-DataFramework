@@ -499,6 +499,47 @@ public class DataFramework {
 	public String getFieldNameLanguage(String name) {
 		return name + "_" + mCore.getCurrentLanguage();
 	}
+
+
+	/**
+	 * Inicia una transaccion 
+	 * @param void
+	 * @return void.
+	 */
+	public void startTransaction()
+	{
+		mCore.getDB().beginTransaction();
+	}
+	
+	/**
+	 * Finaliza una transaccion 
+	 * @param void
+	 * @return void.
+	 */
+	public void endTransaction()
+	{
+		mCore.getDB().endTransaction();
+	}
+
+	/**
+	 * Indica si estamos en una transaccion 
+	 * @param void
+	 * @return Boolean True si hay una transaccion en curso, false en caso contrario.
+	 */
+	public boolean inTransaction()
+	{
+		return mCore.getDB().inTransaction();
+	}
+
+	/**
+	 * Confirma la ejecucion correcta de una transaccion 
+	 * @param void
+	 * @return void.
+	 */
+	public void successfulTransaction()
+	{
+		mCore.getDB().setTransactionSuccessful();
+	}	
 	
 }
 
