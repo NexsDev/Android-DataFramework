@@ -1,0 +1,18 @@
+<database name="dnd_db" version="1">
+    
+    <table name="user" to-string="%_id% %name%">
+         <field name="name" obligatory="true" type="text" size="140"/>
+    </table>
+    
+    <table name="post" to-string="%_id%">
+         <field name="text" obligatory="true" type="text" size="140"/>
+         <field name="user_id" type="foreign-key" foreign-table="user" />
+    </table>
+    
+     <table name="comment" to-string="%_id%">
+         <field name="text" obligatory="true" type="text" size="140"/>
+         <field name="user_id" type="foreign-key" foreign-table="user" />
+         <field name="post_id" type="foreign-key" foreign-table="post" />
+    </table>
+    
+</database>

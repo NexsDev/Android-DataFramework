@@ -1,0 +1,5 @@
+_id|text|user_id|post_id
+3|First. This file must have a prefix "table_data_"|2|2
+4|plus the name of a table|2|2
+5|Second. The first row must have the column names|2|2
+6|Third. you must use the pipe has delimeter|2|2

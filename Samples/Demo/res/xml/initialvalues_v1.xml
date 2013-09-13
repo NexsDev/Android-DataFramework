@@ -1,0 +1,26 @@
+<values>
+  <row table="user" id="1">
+    <field name="name" value="Me" />
+  </row>
+  <row table="user" id="2">
+    <field name="name" value="Other user" />
+  </row>
+  
+  <row table="post" id="1">
+    <field name="text" value="This post was made using the initialvalues_v1 file in the xml folder" />
+     <field name="user_id" value="2" />
+  </row>
+  
+  <row table="comment" id="1">
+    <field name="text" value="It is cool because you can load data" />
+     <field name="user_id" value="2" />
+      <field name="post_id" value="1" />
+  </row>
+  
+   <row table="comment" id="2">
+    <field name="text" value="from this file in your database!" />
+     <field name="user_id" value="2" />
+      <field name="post_id" value="1" />
+  </row>
+  
+</values>
