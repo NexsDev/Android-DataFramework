@@ -474,6 +474,7 @@ public class EntityCursor implements Cursor, Iterable<Entity> {
 		}		
 	}
 
+	@Override
 	public int getType(int columnIndex) {
 		return 0;
 	}

@@ -27,6 +27,21 @@
 
 package com.android.dataframework;
 
+import java.io.IOException;
+import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -34,21 +49,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
+
 import com.android.dataframework.core.Field;
 import com.android.dataframework.core.Table;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
-
-public class Entity {
-	
+@SuppressLint("SimpleDateFormat")
+public class Entity implements Parcelable{
+	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private String mTable;
 	private long mId = -1;
 	private long mForceId = -1;
@@ -83,8 +93,8 @@ public class Entity {
      * 
      * @return id del registro
      */	
-	public long getId() {
-		return mId;
+	public int getId() {
+		return (int)mId;
 	}
 	
     /**
@@ -127,6 +137,27 @@ public class Entity {
 			return 0;
 		}else{
 			return Integer.parseInt(obj.toString());
+		}
+		
+	}
+	
+	/**
+     * Devuelve el valor a un atributo en tipo Date
+     * 
+     * @param name nombre del campo
+     * @return valor del campo (Tipo DateTime)
+     */	
+	public Date getDate(String name) 
+	{
+		Object obj = getValue(name);
+		if (obj == null){
+			return null;
+		}else{
+			try {
+				return DATE_FORMAT.parse(obj.toString());
+			} catch (ParseException e) {
+				throw new RuntimeException("El valor " + obj.toString() + " no corresponde a una fecha", e);
+			}
 		}
 		
 	}
@@ -193,7 +224,7 @@ public class Entity {
 	}
 	
 	/**
-     * Devuelve un objeto Drawable del recurso en la aplicaci�n
+     * Devuelve un objeto Drawable del recurso en la aplicaci&#65533;n
      * 
      * @param name nombre del campo
      * @return valor (Tipo Drawable)
@@ -205,7 +236,7 @@ public class Entity {
 	}	
 	
     /**
-     * Devuelve el Cursor de la entidad con un solo campo pasado como par�metro. 
+     * Devuelve el Cursor de la entidad con un solo campo pasado como par&#65533;metro. 
      * Si la entidad es un nuevo registro devuelve null
      * 
      * @param field campo (Objeto Field)
@@ -234,6 +265,9 @@ public class Entity {
 	        return mCursor;
     	} catch (SQLException e) {
             Log.e("Exception on query", e.toString());
+            if(DataFramework.getInstance().isCRUDExceptionEnabled()){
+				throw new RuntimeException(e);
+			}
         }
     	return null;
     }
@@ -260,6 +294,9 @@ public class Entity {
 	        return mCursor;
     	} catch (SQLException e) {
             Log.e("Exception on query", e.toString());
+            if(DataFramework.getInstance().isCRUDExceptionEnabled()){
+				throw new RuntimeException(e);
+			}
         }
     	return null;
     }
@@ -346,7 +383,7 @@ public class Entity {
 	}
 
 	/**
-	 * A�ade los atributos desde el objeto table.
+	 * A&#65533;ade los atributos desde el objeto table.
 	 * Se llama desde el constructor. 
 	 */
 	private void addAllAttributesFromTable()
@@ -411,6 +448,7 @@ public class Entity {
 		}
 	}
 
+		
 	/**
 	 * Constructor a partir de un cursor, de esta forma nos ahorramos el acceso a la base de datos.
 	 * 
@@ -456,7 +494,7 @@ public class Entity {
 	}
 	
     /**
-    * Constructor - toma como valor el nombre de tabla de la entidad y un XML con la serializaci�n de la entidad. 
+    * Constructor - toma como valor el nombre de tabla de la entidad y un XML con la serializaci&#65533;n de la entidad. 
     * 
     * @param table la tabla de la entidad
     * @param xml Xml devuelto por getSerialization o getXml
@@ -481,7 +519,12 @@ public class Entity {
 		if (Entity.class.isInstance(value)){
 			mAttributes.put(name, ((Entity)value).getId());
 		}else{
-			mAttributes.put(name, value);
+			if(value instanceof Date){
+				mAttributes.put(name, DATE_FORMAT.format((Date)value));
+			}else{
+				mAttributes.put(name, value);
+			}
+			
 		}
 	}
 	
@@ -525,7 +568,7 @@ public class Entity {
 	}
 	
 	/**
-     * Comprueba si el campo pasado por par�metro es un atributo de la entidad
+     * Comprueba si el campo pasado por par&#65533;metro es un atributo de la entidad
      * 
      * @param name nombre del campo
      * @return true si es un campo
@@ -574,7 +617,7 @@ public class Entity {
 					// al metodo ContentValues.put() dependiendo del tipo del
 					// campo.
 					//
-					// Lo que est� muy claro es que nunca se guarda null para ning�n
+					// Lo que est&#65533; muy claro es que nunca se guarda null para ning&#65533;n
 					// campo.
 					if (f.getType().equals("multilanguage")) {
 						args.put(f.getName() + "_" +  DataFramework.getInstance().getCurrentLanguage(), value.toString());
@@ -586,7 +629,7 @@ public class Entity {
 			
 			Iterator<Entry<String, Object>> it = mMultilanguagesAttributes.entrySet().iterator();
 			while (it.hasNext()) {
-				Entry<String, Object> e = (Entry<String, Object>)it.next();
+				Entry<String, Object> e = it.next();
 				args.put(e.getKey().toString(), e.getValue().toString());
 			}
 			
@@ -598,6 +641,9 @@ public class Entity {
 			}
     	} catch (SQLException e) {
             Log.e("Exception on query", e.toString());
+            if(DataFramework.getInstance().isCRUDExceptionEnabled()){
+				throw new RuntimeException(e);
+			}
         }
     	return false;
     }
@@ -614,7 +660,7 @@ public class Entity {
     }
 
     /**
-     * Devuelve la serializaci�n de la entidad en formato de cadena. (XML)
+     * Devuelve la serializaci&#65533;n de la entidad en formato de cadena. (XML)
      * @return XML
      */
     public String getSerialization()
@@ -657,7 +703,7 @@ public class Entity {
     	try {    		
     		
 			XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-			XmlPullParser x = (XmlPullParser)factory.newPullParser();			
+			XmlPullParser x = factory.newPullParser();			
 			x.setInput(new StringReader(xml));
 			
 	    	int eventType = x.getEventType();
@@ -688,8 +734,65 @@ public class Entity {
 			e.printStackTrace();
 		}
     }
+
+	public Set<String> getAttributeNames() {
+		return mAttributes.keySet();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (mId ^ (mId >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Entity other = (Entity) obj;
+		if (mId != other.mId)
+			return false;
+		return true;
+	}
  
+
+    protected Entity(Parcel in) {
+        mTable = in.readString();
+        mId = in.readLong();
+        mForceId = in.readLong();
+        mAttributes = (HashMap)in.readValue(null);
+        mMultilanguagesAttributes = (HashMap)in.readValue(null);
+    }
+
+    @Override
+	public int describeContents() {
+        return 0;
+    }
+
+    @Override
+	public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mTable);
+        dest.writeLong(mId);
+        dest.writeLong(mForceId);
+        dest.writeValue(mAttributes);
+        dest.writeValue(mMultilanguagesAttributes);
+    }
+
+    public static final Parcelable.Creator<Entity> CREATOR = new Parcelable.Creator<Entity>() {
+        @Override
+		public Entity createFromParcel(Parcel in) {
+            return new Entity(in);
+        }
+
+        @Override
+		public Entity[] newArray(int size) {
+            return new Entity[size];
+        }
+    };
 }
-
-
-
