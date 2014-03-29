@@ -404,7 +404,7 @@ public class DataFramework {
 			}
 			c.close();
 		} catch (Exception e) {
-
+			Log.e("DataFramework", "Raw query exception", e);
 		}
 		return aux;
 	}

@@ -53,435 +53,506 @@ import android.os.Bundle;
 
 import java.util.Iterator;
 
-
 /**
  * @author javier
- *
+ * 
  */
 public class EntityCursor implements Cursor, Iterable<Entity> {
 
 	private Cursor mCursor;
 	private String mTableName;
 	private Entity mCurrentEntity;
-	
-	public EntityCursor(String tableName, Cursor c)
-	{
+
+	public EntityCursor(String tableName, Cursor c) {
 		mTableName = tableName;
 		mCursor = c;
 		c.moveToFirst();
 	}
 
 	/**
-	 * Cuando se efect�a un movimiento en el cursor actualizamos la entidad en curso.
+	 * Cuando se efect�a un movimiento en el cursor actualizamos la entidad en
+	 * curso.
 	 * 
 	 * @param oldPosition
 	 * @param newPosition
 	 */
-	private void onMove(int oldPosition, int newPosition)
-	{
-		if (oldPosition != newPosition || mCurrentEntity == null){
+	private void onMove(int oldPosition, int newPosition) {
+		if (oldPosition != newPosition || mCurrentEntity == null) {
 			mCurrentEntity = new Entity(mTableName, mCursor);
 		}
 	}
-	
+
 	/**
-	 * Devuelve la entidad en curso. 
+	 * Devuelve la entidad en curso.
 	 * 
 	 * @return
 	 */
-	public Entity getEntity()
-	{
+	public Entity getEntity() {
 		return mCurrentEntity;
 	}
 
 	/**
-	 *   Implementaci�n de los m�todos abstractos de la clase Cursor.
-	 *   
-	 *   Tan solo realizamos las acciones indicadas sobre el Cursor pasado
-	 * en el constructor.
+	 * Implementaci�n de los m�todos abstractos de la clase Cursor.
+	 * 
+	 * Tan solo realizamos las acciones indicadas sobre el Cursor pasado en el
+	 * constructor.
 	 */
 
-	
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#close()
 	 */
-	@Override
+
 	public void close() {
 		mCursor.close();
 	}
 
-	/* (non-Javadoc)
-	 * @see android.database.Cursor#copyStringToBuffer(int, android.database.CharArrayBuffer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.database.Cursor#copyStringToBuffer(int,
+	 * android.database.CharArrayBuffer)
 	 */
-	@Override
+
 	public void copyStringToBuffer(int columnIndex, CharArrayBuffer buffer) {
 		mCursor.copyStringToBuffer(columnIndex, buffer);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#deactivate()
 	 */
-	@Override
+
 	public void deactivate() {
 		mCursor.deactivate();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getBlob(int)
 	 */
-	@Override
-	public byte[] getBlob(int columnIndex) {		
+
+	public byte[] getBlob(int columnIndex) {
 		return mCursor.getBlob(columnIndex);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getColumnCount()
 	 */
-	@Override
-	public int getColumnCount() {		
+
+	public int getColumnCount() {
 		return mCursor.getColumnCount();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getColumnIndex(java.lang.String)
 	 */
-	@Override
-	public int getColumnIndex(String columnName) {		
+
+	public int getColumnIndex(String columnName) {
 		return mCursor.getColumnIndex(columnName);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getColumnIndexOrThrow(java.lang.String)
 	 */
-	@Override
+
 	public int getColumnIndexOrThrow(String columnName)
-			throws IllegalArgumentException {		
+			throws IllegalArgumentException {
 		return mCursor.getColumnIndexOrThrow(columnName);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getColumnName(int)
 	 */
-	@Override
-	public String getColumnName(int columnIndex) {		
+
+	public String getColumnName(int columnIndex) {
 		return mCursor.getColumnName(columnIndex);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getColumnNames()
 	 */
-	@Override
+
 	public String[] getColumnNames() {
 		return mCursor.getColumnNames();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getCount()
 	 */
-	@Override
-	public int getCount() {		
+
+	public int getCount() {
 		return mCursor.getCount();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getDouble(int)
 	 */
-	@Override
-	public double getDouble(int columnIndex) {		
+
+	public double getDouble(int columnIndex) {
 		return mCursor.getDouble(columnIndex);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getExtras()
 	 */
-	@Override
-	public Bundle getExtras() {		
+
+	public Bundle getExtras() {
 		return mCursor.getExtras();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getFloat(int)
 	 */
-	@Override
-	public float getFloat(int columnIndex) {		
+
+	public float getFloat(int columnIndex) {
 		return mCursor.getFloat(columnIndex);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getInt(int)
 	 */
-	@Override
+
 	public int getInt(int columnIndex) {
 		return mCursor.getInt(columnIndex);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getLong(int)
 	 */
-	@Override
-	public long getLong(int columnIndex) {		
+
+	public long getLong(int columnIndex) {
 		return mCursor.getLong(columnIndex);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getPosition()
 	 */
-	@Override
+
 	public int getPosition() {
 		return mCursor.getPosition();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getShort(int)
 	 */
-	@Override
+
 	public short getShort(int columnIndex) {
 		return mCursor.getShort(columnIndex);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getString(int)
 	 */
-	@Override
+
 	public String getString(int columnIndex) {
 		return mCursor.getString(columnIndex);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#getWantsAllOnMoveCalls()
 	 */
-	@Override
+
 	public boolean getWantsAllOnMoveCalls() {
 		return mCursor.getWantsAllOnMoveCalls();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#isAfterLast()
 	 */
-	@Override
+
 	public boolean isAfterLast() {
 		return mCursor.isAfterLast();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#isBeforeFirst()
 	 */
-	@Override
+
 	public boolean isBeforeFirst() {
 		return mCursor.isBeforeFirst();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#isClosed()
 	 */
-	@Override
-	public boolean isClosed() {		
+
+	public boolean isClosed() {
 		return mCursor.isClosed();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#isFirst()
 	 */
-	@Override
-	public boolean isFirst() {		
+
+	public boolean isFirst() {
 		return mCursor.isFirst();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#isLast()
 	 */
-	@Override
+
 	public boolean isLast() {
 		return mCursor.isLast();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#isNull(int)
 	 */
-	@Override
+
 	public boolean isNull(int columnIndex) {
 		return mCursor.isNull(columnIndex);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#move(int)
 	 */
-	@Override
+
 	public boolean move(int offset) {
-		int oldPos = getPosition();		
+		int oldPos = getPosition();
 		boolean result = mCursor.move(offset);
 		int newPos = getPosition();
 		onMove(oldPos, newPos);
-		return result;		
+		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#moveToFirst()
 	 */
-	@Override
+
 	public boolean moveToFirst() {
-		int oldPos = getPosition();		
+		int oldPos = getPosition();
 		boolean result = mCursor.moveToFirst();
 		int newPos = getPosition();
 		onMove(oldPos, newPos);
-		return result;		
+		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#moveToLast()
 	 */
-	@Override
+
 	public boolean moveToLast() {
-		int oldPos = getPosition();		
+		int oldPos = getPosition();
 		boolean result = mCursor.moveToLast();
 		int newPos = getPosition();
 		onMove(oldPos, newPos);
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#moveToNext()
 	 */
-	@Override
+
 	public boolean moveToNext() {
-		int oldPos = getPosition();		
+		int oldPos = getPosition();
 		boolean result = mCursor.moveToNext();
 		int newPos = getPosition();
 		onMove(oldPos, newPos);
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#moveToPosition(int)
 	 */
-	@Override
+
 	public boolean moveToPosition(int position) {
-		int oldPos = getPosition();		
+		int oldPos = getPosition();
 		boolean result = mCursor.moveToPosition(position);
 		int newPos = getPosition();
 		onMove(oldPos, newPos);
-		return result; 
+		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#moveToPrevious()
 	 */
-	@Override
+
 	public boolean moveToPrevious() {
-		int oldPos = getPosition();		
+		int oldPos = getPosition();
 		boolean result = mCursor.moveToPrevious();
 		int newPos = getPosition();
 		onMove(oldPos, newPos);
-		return result; 
+		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see android.database.Cursor#registerContentObserver(android.database.ContentObserver)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.database.Cursor#registerContentObserver(android.database.
+	 * ContentObserver)
 	 */
-	@Override
+
 	public void registerContentObserver(ContentObserver observer) {
 		mCursor.registerContentObserver(observer);
 	}
 
-	/* (non-Javadoc)
-	 * @see android.database.Cursor#registerDataSetObserver(android.database.DataSetObserver)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.database.Cursor#registerDataSetObserver(android.database.
+	 * DataSetObserver)
 	 */
-	@Override
+
 	public void registerDataSetObserver(DataSetObserver observer) {
 		mCursor.registerDataSetObserver(observer);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#requery()
 	 */
-	@Override
+
 	public boolean requery() {
 		return mCursor.requery();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.database.Cursor#respond(android.os.Bundle)
 	 */
-	@Override
+
 	public Bundle respond(Bundle extras) {
 		return mCursor.respond(extras);
 	}
 
-	/* (non-Javadoc)
-	 * @see android.database.Cursor#setNotificationUri(android.content.ContentResolver, android.net.Uri)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * android.database.Cursor#setNotificationUri(android.content.ContentResolver
+	 * , android.net.Uri)
 	 */
-	@Override
+
 	public void setNotificationUri(ContentResolver cr, Uri uri) {
 		mCursor.setNotificationUri(cr, uri);
 	}
 
-	/* (non-Javadoc)
-	 * @see android.database.Cursor#unregisterContentObserver(android.database.ContentObserver)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.database.Cursor#unregisterContentObserver(android.database.
+	 * ContentObserver)
 	 */
-	@Override
+
 	public void unregisterContentObserver(ContentObserver observer) {
 		mCursor.unregisterContentObserver(observer);
 	}
 
-	/* (non-Javadoc)
-	 * @see android.database.Cursor#unregisterDataSetObserver(android.database.DataSetObserver)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.database.Cursor#unregisterDataSetObserver(android.database.
+	 * DataSetObserver)
 	 */
-	@Override
+
 	public void unregisterDataSetObserver(DataSetObserver observer) {
 		mCursor.unregisterDataSetObserver(observer);
 	}
-	
+
 	/**
-	 *   Implementaci�n de los m�todos de la Interface Iterable.
-	 *   
-	 *   Tan solo realizamos las acciones indicadas sobre el Cursor pasado
-	 * en el constructor.
+	 * Implementaci�n de los m�todos de la Interface Iterable.
+	 * 
+	 * Tan solo realizamos las acciones indicadas sobre el Cursor pasado en el
+	 * constructor.
 	 */
-	@Override
+
 	public Iterator<Entity> iterator() {
 		return new EntityIterator();
 	}
-	
-	/** 
+
+	/**
 	 * Definicion e implementacion de la clase EntityIterator
 	 */
 	public class EntityIterator implements Iterator<Entity> {
-		
-		@Override
-		public boolean hasNext() 
-		{
-			if (mCursor.isLast() || mCursor.isAfterLast()){
+
+		public boolean hasNext() {
+			if (mCursor.isLast() || mCursor.isAfterLast()) {
 				return false;
-			}else{
+			} else {
 				return true;
-			}			
+			}
 		}
 
-		@Override
-		public Entity next() 
-		{
-			if (mCurrentEntity == null){
+		public Entity next() {
+			if (mCurrentEntity == null) {
 				moveToFirst();
-			}else{
+			} else {
 				moveToNext();
 			}
 			return mCurrentEntity;
 		}
 
-		@Override
-		public void remove() 
-		{
-		}		
+		public void remove() {
+		}
 	}
 
-	@Override
 	public int getType(int columnIndex) {
 		return 0;
 	}
 
+	public Uri getNotificationUri() {
+		return null;
+	}
+
 }
-
-
-
-
-
